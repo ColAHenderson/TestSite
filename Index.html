@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Transparent Video Overlay</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+        }
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        #overlay {
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #camera {
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <video id="camera" autoplay playsinline muted></video>
+    <video id="overlay" autoplay playsinline loop muted></video>
+
+    <script>
+    const camera = document.getElementById('camera');
+    const overlay = document.getElementById('overlay');
+
+    // Access camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        camera.srcObject = stream;
+      })
+      .catch(error => {
+        console.error('Camera access denied or not available:', error);
+      });
+
+    // Load transparent overlay video
+    overlay.src = '2 VICTOREAN VIGNETTE C.webm'; // Make sure this file exists in the same folder
+    </script>
+</body>
+</html>
