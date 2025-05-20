@@ -94,6 +94,12 @@
             console.error('Video load error', e);
         });
 
+        greenscreen.addEventListener('canplaythrough', () => {
+            greenscreen.play().catch(err => {
+                console.warn('Autoplay failed, will require user interaction:', err);
+            });
+        });
+
         document.addEventListener('click', () => {
             greenscreen.play().then(() => {
                 console.log('Manual play triggered');
